@@ -1,5 +1,6 @@
 package com.asi.kursasiandek;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -32,5 +33,11 @@ public class MainActivity extends AppCompatActivity {
         if (!str.isEmpty()) {
             textView.setText(str);
         }
+    }
+
+    @OnClick(R.id.new_activity_button)
+    void onNewActivityButtonClick(){
+        Intent intent = new Intent(this, Activity2.class);
+        startActivity(intent);
     }
 }

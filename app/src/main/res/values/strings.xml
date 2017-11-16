@@ -3,4 +3,9 @@
     <string name="label1">Hello world!</string>
     <string name="str2">cosdvgdfsvś</string>
     <string name="clickme">clickMe!</string>
+    <string name="new_activity">new activity</string>
+    <string name="to_jest_nowy_activity">to jest nowy activity</string>
+    <string name="fragment_hello">to jest fragment</string>
+    <string name="fragment_1">fragment 1</string>
+    <string name="fragment_2">fragment 2</string>
 </resources>
