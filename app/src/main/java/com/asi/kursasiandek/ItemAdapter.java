@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.Vector;
 
 import butterknife.BindView;
@@ -15,9 +19,11 @@ import butterknife.ButterKnife;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
 
     private Vector<CardItem> cardItems;
+    private RequestManager glide;
 
-    ItemAdapter(Vector<CardItem> cardItems){
+    ItemAdapter(Vector<CardItem> cardItems, RequestManager glide){
         this.cardItems = cardItems;
+        this.glide = glide;
     }
 
     @Override
@@ -29,6 +35,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
     @Override
     public void onBindViewHolder(ItemAdapter.Holder holder, int position) {
         CardItem cardItem = cardItems.get(position);
+
+        glide.load(cardItem.getImageUrl())
+                .apply(new RequestOptions()
+                        .fitCenter()
+                        .placeholder(R.mipmap.ic_launcher_round))
+                .into(holder.image);
 
         holder.title.setText(cardItem.getTitle());
         holder.message.setText(cardItem.getMessage());

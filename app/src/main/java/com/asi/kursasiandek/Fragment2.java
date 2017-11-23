@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.Vector;
 
 import butterknife.BindView;
@@ -32,9 +34,9 @@ public class Fragment2 extends Fragment {
 
         setRecyclerView();
 
-        cardItems.add(new CardItem("Title1", "coś", ""));
-        cardItems.add(new CardItem("Title2", "Hello world", ""));
-        cardItems.add(new CardItem("Title3", "Hello world", ""));
+        cardItems.add(new CardItem("Title1", "coś", "https://i.ytimg.com/vi/6pVKA31Ks_U/maxresdefault.jpg"));
+        cardItems.add(new CardItem("Title2", "Hello world", "http://www.tapeciarnia.pl/tapety/normalne/191307_oczy_kotki.jpg"));
+        cardItems.add(new CardItem("Title3", "Hello world", "https://i.ytimg.com/vi/6pVKA31Ks_U/maxresdefault.jpg"));
 
         return view;
     }
@@ -43,6 +45,6 @@ public class Fragment2 extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new ItemAdapter(cardItems));
+        recyclerView.setAdapter(new ItemAdapter(cardItems, Glide.with(this)));
     }
 }
