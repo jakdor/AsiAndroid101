@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.asi.kursasiandek.Model.Item;
+import com.asi.kursasiandek.Model.StackQuestions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.Stack;
 import java.util.Vector;
 
 import butterknife.BindView;
@@ -18,11 +21,11 @@ import butterknife.ButterKnife;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
 
-    private Vector<CardItem> cardItems;
+    private StackQuestions stackQuestions;
     private RequestManager glide;
 
-    ItemAdapter(Vector<CardItem> cardItems, RequestManager glide){
-        this.cardItems = cardItems;
+    ItemAdapter(StackQuestions stackQuestions, RequestManager glide){
+        this.stackQuestions = stackQuestions;
         this.glide = glide;
     }
 
@@ -34,21 +37,21 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(ItemAdapter.Holder holder, int position) {
-        CardItem cardItem = cardItems.get(position);
+        Item item = stackQuestions.getItems().get(position);
 
-        glide.load(cardItem.getImageUrl())
+        glide.load(item.getOwner().getProfileImage())
                 .apply(new RequestOptions()
                         .fitCenter()
                         .placeholder(R.mipmap.ic_launcher_round))
                 .into(holder.image);
 
-        holder.title.setText(cardItem.getTitle());
-        holder.message.setText(cardItem.getMessage());
+        holder.title.setText(item.getTitle());
+        holder.message.setText(item.getOwner().getDisplayName());
     }
 
     @Override
     public int getItemCount() {
-        return cardItems.size();
+        return stackQuestions.getItems().size();
     }
 
     static class Holder extends RecyclerView.ViewHolder{
