@@ -58,7 +58,8 @@ public class Fragment2 extends Fragment {
                 if(response.body() != null) {
                     Log.i(CLASS_TAG, "retrofit got api");
                     stackQuestions = response.body();
-                    recyclerView.setAdapter(new ItemAdapter(stackQuestions, Glide.with(Fragment2.this)));
+                    recyclerView.setAdapter(new ItemAdapter(
+                            stackQuestions, Glide.with(Fragment2.this), getContext()));
                 }
             }
 

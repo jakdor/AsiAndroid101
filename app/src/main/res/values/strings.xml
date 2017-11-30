@@ -10,4 +10,6 @@
     <string name="fragment_2">fragment 2</string>
     <string name="message_place_holder">message place holder</string>
     <string name="title_place_holder">Title place holder</string>
+    <string name="dialog_place_holder">dialog place holder</string>
+    <string name="dialog_content_place_holder">dvdhdfhsdfjsdfhcsdhijcvhsdj</string>
 </resources>

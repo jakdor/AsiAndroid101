@@ -1,9 +1,14 @@
 package com.asi.kursasiandek;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,10 +28,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
 
     private StackQuestions stackQuestions;
     private RequestManager glide;
+    private Context context;
 
-    ItemAdapter(StackQuestions stackQuestions, RequestManager glide){
+    ItemAdapter(StackQuestions stackQuestions, RequestManager glide, Context context){
         this.stackQuestions = stackQuestions;
         this.glide = glide;
+        this.context = context;
     }
 
     @Override
@@ -45,6 +52,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
                         .placeholder(R.mipmap.ic_launcher_round))
                 .into(holder.image);
 
+        holder.image.setOnClickListener(view -> openWebsite(item.getLink()));
+
+        holder.title.setOnClickListener(view -> openItemDialog(item.getTitle(), item.toString()));
+
         holder.title.setText(item.getTitle());
         holder.message.setText(item.getOwner().getDisplayName());
     }
@@ -52,6 +63,23 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
     @Override
     public int getItemCount() {
         return stackQuestions.getItems().size();
+    }
+
+    private void openWebsite(String url){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        context.startActivity(browserIntent);
+    }
+
+    private void openItemDialog(String title, String content){
+        Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.stack_item_dialog);
+        dialog.show();
+
+        TextView dialogTitle = (TextView) dialog.findViewById(R.id.dialog_title);
+        TextView dialogContent = (TextView) dialog.findViewById(R.id.dialog_content);
+        dialogTitle.setText(title);
+        dialogContent.setText(content);
     }
 
     static class Holder extends RecyclerView.ViewHolder{
