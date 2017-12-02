@@ -14,12 +14,8 @@ import android.widget.TextView;
 
 import com.asi.kursasiandek.Model.Item;
 import com.asi.kursasiandek.Model.StackQuestions;
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
-
-import java.util.Stack;
-import java.util.Vector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,8 +72,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
         dialog.setContentView(R.layout.stack_item_dialog);
         dialog.show();
 
-        TextView dialogTitle = (TextView) dialog.findViewById(R.id.dialog_title);
-        TextView dialogContent = (TextView) dialog.findViewById(R.id.dialog_content);
+        TextView dialogTitle = dialog.findViewById(R.id.dialog_title);
+        TextView dialogContent = dialog.findViewById(R.id.dialog_content);
         dialogTitle.setText(title);
         dialogContent.setText(content);
     }

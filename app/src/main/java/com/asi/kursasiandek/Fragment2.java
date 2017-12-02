@@ -15,8 +15,6 @@ import com.asi.kursasiandek.Networking.RetrofitBuilder;
 import com.asi.kursasiandek.Networking.StackService;
 import com.bumptech.glide.Glide;
 
-import java.util.Vector;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
