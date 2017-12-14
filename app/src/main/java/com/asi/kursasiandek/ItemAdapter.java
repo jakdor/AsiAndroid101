@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.asi.kursasiandek.Model.Item;
 import com.asi.kursasiandek.Model.StackQuestions;
+import com.asi.kursasiandek.databinding.CardItemBinding;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -34,26 +35,24 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
 
     @Override
     public ItemAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
-        return new ItemAdapter.Holder(view);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        CardItemBinding cardItemBinding = CardItemBinding.inflate(layoutInflater, parent, false);
+        return new ItemAdapter.Holder(cardItemBinding);
     }
 
     @Override
     public void onBindViewHolder(ItemAdapter.Holder holder, int position) {
         Item item = stackQuestions.getItems().get(position);
+        holder.bind(item);
 
         glide.load(item.getOwner().getProfileImage())
                 .apply(new RequestOptions()
                         .fitCenter()
                         .placeholder(R.mipmap.ic_launcher_round))
-                .into(holder.image);
+                .into(holder.binding.itemImage);
 
-        holder.image.setOnClickListener(view -> openWebsite(item.getLink()));
-
-        holder.title.setOnClickListener(view -> openItemDialog(item.getTitle(), item.toString()));
-
-        holder.title.setText(item.getTitle());
-        holder.message.setText(item.getOwner().getDisplayName());
+        holder.binding.itemImage.setOnClickListener(view -> openWebsite(item.getLink()));
+        holder.binding.itemTitle.setOnClickListener(view -> openItemDialog(item.getTitle(), item.toString()));
     }
 
     @Override
@@ -79,16 +78,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder> {
     }
 
     static class Holder extends RecyclerView.ViewHolder{
-        @BindView(R.id.item_image)
-        ImageView image;
-        @BindView(R.id.item_title)
-        TextView title;
-        @BindView(R.id.item_message)
-        TextView message;
+        private final CardItemBinding binding;
 
-        public Holder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        public Holder(CardItemBinding cardItemBinding) {
+            super(cardItemBinding.getRoot());
+            this.binding = cardItemBinding;
+        }
+
+        private void bind(Item item){
+            binding.setItem(item);
+            binding.executePendingBindings();
         }
     }
 }
