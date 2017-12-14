@@ -1,6 +1,8 @@
 package com.asi.kursasiandek;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +26,8 @@ public class Fragment1 extends Fragment {
     @BindView(R.id.out)
     TextView textView;
 
+    private SharedPreferences sharedPreferences;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -32,12 +36,17 @@ public class Fragment1 extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment1_layout,container,false);
         ButterKnife.bind(this,view);
+
+        sharedPreferences = getContext().getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+        textView.setText(sharedPreferences.getString(getString(R.string.save_key1),"defaultVal"));
+
         return view;
     }
 
     @OnClick(R.id.button1)
     void onButtonClick(){
         String str = editText.getText().toString();
+        sharedPreferences.edit().putString(getString(R.string.save_key1), str).apply();
         if (!str.isEmpty()) {
             textView.setText(str);
         }
